@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"log"
 	"net"
 
@@ -10,7 +12,13 @@ import (
 
 type server struct{}
 
+func (*server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
+	result := "Hello " + req.Greeting.GetFirstName()
+	return &greetpb.GreetResponse{Result: result}, nil
+}
+
 func main() {
+	fmt.Println("Hello, I'm a server")
 	lis, err := net.Listen("tcp", "0.0.0.0:50051")
 	if err != nil {
 		log.Fatalf("Failed to listen %v", err)
