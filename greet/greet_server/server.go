@@ -13,6 +13,7 @@ import (
 type server struct{}
 
 func (*server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
+	fmt.Printf("Greet function was involked with %v \n", req)
 	result := "Hello " + req.Greeting.GetFirstName()
 	return &greetpb.GreetResponse{Result: result}, nil
 }
